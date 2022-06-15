@@ -6,8 +6,8 @@ import (
 
 	"github.com/urfave/cli"
 
-	"github.com/bradrydzewski/togo/parser"
-	"github.com/bradrydzewski/togo/template"
+	"github.com/fengxuway/togo/parser"
+	"github.com/fengxuway/togo/template"
 )
 
 type sqlParams struct {

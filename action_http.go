@@ -10,7 +10,7 @@ import (
 	"github.com/bmatcuk/doublestar"
 	"github.com/urfave/cli"
 
-	"github.com/bradrydzewski/togo/template"
+	"github.com/fengxuway/togo/template"
 )
 
 type (
