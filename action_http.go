@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -8,9 +9,8 @@ import (
 	"strings"
 
 	"github.com/bmatcuk/doublestar"
-	"github.com/urfave/cli"
-
 	"github.com/fengxuway/togo/template"
+	"github.com/urfave/cli"
 )
 
 type (
@@ -18,6 +18,7 @@ type (
 		Encode  bool
 		Package string
 		Files   []*httpFile
+		Tag     string
 	}
 	httpFile struct {
 		Base    string
@@ -58,6 +59,11 @@ var httpCommand = cli.Command{
 		cli.StringSliceFlag{
 			Name:  "plain-text",
 			Value: &cli.StringSlice{"html", "js", "css"},
+		},
+		cli.StringFlag{
+			Name:  "tag",
+			Value: "",
+			Usage: "generate code with //go:build $tag",
 		},
 	},
 }
@@ -117,6 +123,9 @@ func httpAction(c *cli.Context) error {
 		data := string(raw)
 		if !encoded {
 			data = strings.Replace(data, "`", "`+\"`\"+`", -1)
+		}
+		if tagArg := c.String("tag"); tagArg != "" {
+			params.Tag = fmt.Sprintf("//go:build %s\n", tagArg)
 		}
 		params.Files = append(params.Files, &httpFile{
 			Path:    strings.TrimPrefix(match, prefix),
