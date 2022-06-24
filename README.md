@@ -3,5 +3,5 @@
 ## Installation
 
 ```shell
-go get github.com/fengxuway/togo@v1.0.0
+go get github.com/fengxuway/togo@latest
 ```
